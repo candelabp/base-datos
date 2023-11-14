@@ -67,3 +67,30 @@ descripcion varchar(200),
 precio int,
 numeroExistencias int
 );
+
+# SELECT
+select * from Provincia;
+select * from Departamento;
+
+# Inserto PROVINCIAS a las tablas
+insert into Provincia(nombreProvincia) VALUES("Mendoza");
+insert into Provincia(nombreProvincia) VALUES("Cordoba");
+insert into Provincia(nombreProvincia) VALUES("Buenos Aires");
+insert into Provincia(nombreProvincia) VALUES("San Luis");
+insert into Provincia(nombreProvincia) VALUES("Tierra del Fuego");
+
+# Inserto DEPARTAMENTOS
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("San Rafael", 1);
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("San Martin", 1);
+
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Rio Segundo", 2);
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Colon", 2);
+
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("La Plata", 3);
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Quilmes", 3);
+
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Ayacucho", 4);
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Coronel Pringles", 4);
+
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Ushuaia", 5);
+insert into Departamento(nombreDepartamento, idProvincia) VALUES("Tolhuin", 5);
