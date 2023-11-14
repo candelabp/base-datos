@@ -312,3 +312,48 @@ DELIMITER ;
 SELECT * FROM producto;
 CALL AumentarStock(1, 10);
 SELECT * FROM producto;
+
+INSERT INTO Clientes (codigo, idPersona) VALUES (1001, 1);
+
+-- Insertar datos en la tabla Compra
+INSERT INTO Compra (idClientes, fechaCompra) VALUES (1, '2023-11-14');
+
+-- Obtener el ID de la última compra realizada
+SET @idCompra = LAST_INSERT_ID();
+
+-- Insertar detalles de la compra en la tabla Detalle
+INSERT INTO Detalle (precio, cantidad, idProducto, idCompra) VALUES
+(
+  (SELECT precio FROM Producto WHERE idProducto = 1),
+  2,
+  1,
+  @idCompra
+),
+(
+  (SELECT precio FROM Producto WHERE idProducto = 3),
+  1,
+  3,
+  @idCompra
+),
+(
+  (SELECT precio FROM Producto WHERE idProducto = 5),
+  1,
+  5,
+  @idCompra
+);
+
+-- Actualizar el stock de productos después de la compra
+CALL AumentarStock(1, -2);
+CALL AumentarStock(3, -1);
+CALL AumentarStock(5, -1);
+-- Consultas
+SELECT P.*
+FROM Producto P
+JOIN productoProveedor PP ON P.idProducto = PP.idProducto
+WHERE PP.idProveedores = 1;
+
+SELECT C.idClientes, SUM(P.precio * D.cantidad) AS total_gastado
+FROM Compra C
+JOIN Detalle D ON C.idCompra = D.idCompra
+JOIN Producto P ON D.idProducto = P.idProducto
+GROUP BY C.idClientes;
