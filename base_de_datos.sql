@@ -171,6 +171,7 @@ ALTER TABLE Proveedores
 ADD COLUMN idEmpresa int,
 ADD CONSTRAINT fk_proveedor_empresa FOREIGN KEY (idEmpresa) REFERENCES Empresa(idEmpresa);
 
+-- personas proveedores
 INSERT INTO Persona (nombre, apellido, numeroTelefono) VALUES
 ('Juan', 'Perez', 261456789),
 ('Maria', 'Gomez', 266654321),
@@ -187,7 +188,7 @@ INSERT INTO Persona (nombre, apellido, numeroTelefono) VALUES
 ('Santiago', 'Castro', 106111999),
 ('Agustina', 'Rios', 107888777),
 ('Alejandro', 'Alvarez', 108222333);
-
+-- empresas
 INSERT INTO Empresa (nombreEmpresa, numeroTelefono, esNacional) VALUES
 ('TecnoVanguardia', 261456777, true),
 ('ByteFuturo', 266654366, true),
@@ -205,7 +206,7 @@ INSERT INTO Empresa (nombreEmpresa, numeroTelefono, esNacional) VALUES
 ('CiberEsfera ', 777777555, false),
 ('FuturaCode ', 666666111, true);
 
--- Insertar datos en la tabla Proveedores
+-- vinculacion de las personas y las empresas
 INSERT INTO Proveedores (codigo, idPersona, idEmpresa) VALUES
 (1, 1, 1),
 (2, 2, 2),
@@ -294,7 +295,7 @@ SELECT * FROM persona;
 SELECT * FROM empresa;
 
 DELIMITER //
-
+-- procedimiento para agregar stock
 CREATE PROCEDURE AumentarStock(
   IN p_idProducto INT,
   IN p_cantidad INT
@@ -307,6 +308,7 @@ BEGIN
 END //
 
 DELIMITER ;
+-- prueba de agregar stock
 SELECT * FROM producto;
 CALL AumentarStock(1, 10);
 SELECT * FROM producto;
