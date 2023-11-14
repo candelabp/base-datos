@@ -140,6 +140,25 @@ insert into Departamento(nombreDepartamento, idProvincia) VALUES("Coronel Pringl
 insert into Departamento(nombreDepartamento, idProvincia) VALUES("Ushuaia", 5);
 insert into Departamento(nombreDepartamento, idProvincia) VALUES("Tolhuin", 5); 
 
+delimiter //
+create procedure RegistrarCompra(
+in p_idProducto int,
+in p_idProveedores int,
+in p_cantidad int,
+in p_fecha_compra date,
+in p_idClientes int
+)
+
+begin
+insert into Detalle(idProducto, idProveedores, cantidad, fecha_compra, idCompra)
+values(p_idProducto, p_idProveedores, p_cantidad, p_fecha_compra, p_idClientes);
+
+update Producto
+set numeroExistencias = numeroExistencias - p_cantidad
+where idProducto = p_idProducto;
+end //
+delimiter ;
+
 SELECT *
 FROM Departamento;
 
