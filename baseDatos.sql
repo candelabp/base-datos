@@ -67,3 +67,32 @@ descripcion varchar(200),
 precio int,
 numeroExistencias int
 );
+create table Compras(
+idCompras int primary key,
+idProducto int,
+idProveedores int,
+cantidad int,
+fecha_compra date,
+foreign key (idProducto) references Producto(idProducto),
+foreign key (idProveedor) references Proveedor(idProveedor)
+)
+
+delimiter //
+create procedure RegistrarCompra(
+in p_idProducto int,
+in p_idProveedor int,
+in p_cantidad int,
+in p_fecha_compra date
+)
+
+begin
+insert into Compra(idProducto, idProveedor, cantidad, fecha_compra)
+values(p_idProducto, p_idProveedor, p_cantidad, p_fecha_compra);
+
+update Productos 
+set numeroExistencias = numeroExistencias - cantidad
+where idProducto = p_idProducto;
+end //
+delimiter ;
+
+call RegistrarCompra(1, 1, 10, '2023-11-13');
